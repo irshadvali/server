@@ -48,3 +48,8 @@ const port = 3501;
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+//git remote -v
+//git remote set-url origin https://<your-username>:<your-token>@github.com/<your-repo>.git
+//git remote -v
+//git push origin <branch-name>
