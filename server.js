@@ -2,10 +2,21 @@ const http = require('http');
 
 // Static JSON data
 const jsonData = {
-    message: 'Hello, world!',
-    data: {
-        key: 'value',
-        number: 42
+    42: {
+        message: 'Hello, world!',
+        data: {
+            key: 'value',
+            id: 42,
+            name: "ABC"
+        }
+    },
+    43: {
+        message: 'Hello, world!',
+        data: {
+            key: 'value',
+            id: 43,
+            name: "XYZ"
+        }
     }
 };
 
@@ -17,8 +28,19 @@ const server = http.createServer((req, res) => {
         'Access-Control-Allow-Origin': '*'
     });
 
-    // Send JSON data
-    res.end(JSON.stringify(jsonData));
+    // Parse the request URL
+    const urlParts = req.url.split('/');
+    const id = urlParts[urlParts.length - 1];
+
+    // Check if id exists in jsonData
+    if (jsonData[id]) {
+        // Send JSON data for the id
+        res.end(JSON.stringify(jsonData[id]));
+    } else {
+        // Send error if id is not found
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Data not found');
+    }
 });
 
 // Start the server
